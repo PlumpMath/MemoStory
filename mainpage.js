@@ -1,37 +1,64 @@
 'use strict';
+import Dimensions from 'Dimensions';
 
 var React = require('react-native');
-var { AppRegistry, StyleSheet,View,Text } = React;
+var { 
+    AppRegistry,
+    StyleSheet,
+    View,
+    Text, 
+    TouchableHighlight,
+    } = React;
 
+var width = Dimensions.get("window").width;
 
-var NavigationBar = require('./NavigationBar');
-var Timeline = require('./Timeline');
+var SeparatedView = require('./SeparatedView');
 
 var MainPage = React.createClass({
-  render: function() {
-    return (
-      <View style={styles.container}>
-        <NavigationBar />
-        if(NavigationBar.state.menu==1) {
-        } else {
-        <View style={styles.body}>
-         <Text style={styles.welcome}>
-           Welcome to React Native!
-          </Text>
-          <Text style={styles.instructions}>
-             To get started, edit index.android.js
-          </Text>
-          <Text style={styles.instructions}>
-             Shake or press menu button for dev menu
-          </Text>
-         </View>
-         }
-      </View>
-    );
-  }
+    getInitialState: function() {
+        return { menu: 1, active: [true, false, false, false] };
+    },
+    changeState: function(_menu) {
+        var arr = this.state.active;
+        arr[this.state.menu-1]=false;
+        arr[_menu-1]=true;
+        return this.setState({menu: _menu, active: arr});
+    },
+    getColor: function(_menu) {
+        return {backgroundColor: (this.state.active[_menu-1]==true ? '#60D560' : '#80EA80')};
+    },
+    render: function() {
+        return (
+        <View style={styles.container}>
+          <View style={styles.searchBar}>
+            <View style={[styles.navMenu, this.getColor(1)]}>
+                <TouchableHighlight onPress={() => this.changeState(1)}>
+                    <Text style={styles.text}>1</Text>
+                </TouchableHighlight>
+            </View>
+            <View style={[styles.navMenu, this.getColor(2)]}>
+                <TouchableHighlight onPress={() => this.changeState(2)}>
+                    <Text style={styles.text}>2</Text>
+                </TouchableHighlight>
+            </View>
+            <View style={[styles.navMenu, this.getColor(3)]}>
+                <TouchableHighlight onPress={() => this.changeState(3)}>
+                    <Text style={styles.text}>3</Text>
+                </TouchableHighlight>
+            </View>
+            <View style={[styles.navMenu, this.getColor(4)]}>
+                <TouchableHighlight onPress={() => this.changeState(4)}>
+                    <Text style={styles.text}>4</Text>
+                </TouchableHighlight>
+            </View>
+          </View>
+          <View>
+            <SeparatedView routing={this.state.menu}/>
+          </View>
+        </View>
+        );
+    }
 });
-
-
 
 
 const styles = StyleSheet.create({
@@ -39,18 +66,38 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
   body: {
     alignSelf: 'flex-end'
+  },
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    borderBottomWidth: 4,
+    borderColor: '#80E080',
+    height: 60,
+  },
+
+  text: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    flexDirection: 'row',
+    textAlign: 'center',
+    width: width/4,
+    height: 60,
+    alignSelf: 'stretch'
+  },
+  navMenu: {
+    flexDirection: 'row',
+    margin: 0,
+    padding: 0,
+    width: width/4,
+    borderColor: '#80E080',
+    borderWidth: 0.5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'stretch',
   },
 });
 

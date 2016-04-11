@@ -9,11 +9,38 @@ var {
 
 var Timeline = React.createClass({
     getInitialState: function() {
-        return {data: [], view: 0};
+        return {data: [], page: 1};
     },
-    render: function() {
-        return (<Text></Text>);
+    
+/*    render_event: function() {
+
+
+    },
+
+    iterated_render: function() {
+
+
+    },
+*/    render: function() {
+//        fetch();
+         return (
+            <View>
+         
+            </View>
+         );
     }
 });
 
+
+const styles = StyleSheet.create({
+    circle_symbol: {
+
+    },
+    title: {
+        
+    },
+    description: {
+
+    }
+});
 module.exports = Timeline;
