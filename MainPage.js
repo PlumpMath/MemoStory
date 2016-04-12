@@ -8,15 +8,16 @@ var {
     View,
     Text, 
     TouchableHighlight,
-    } = React;
+} = React;
 
 var width = Dimensions.get("window").width;
 
 var SeparatedView = require('./SeparatedView');
 
+
 var MainPage = React.createClass({
     getInitialState: function() {
-        return { menu: 1, active: [true, false, false, false] };
+        return { menu: 1, active: [true, false, false, false, false] };
     },
     changeState: function(_menu) {
         var arr = this.state.active;
@@ -30,6 +31,14 @@ var MainPage = React.createClass({
     render: function() {
         return (
         <View style={styles.container}>
+          <View style={styles.logo}>
+            <Text>MemoStory</Text>
+            <View style={[styles.navMenu, this.getColor(5)]}>
+                <TouchableHighlight onPress={() => this.changeState(5)}>
+                    <Text style={styles.text}>New</Text>
+                </TouchableHighlight>
+            </View>
+          </View>
           <View style={styles.searchBar}>
             <View style={[styles.navMenu, this.getColor(1)]}>
                 <TouchableHighlight onPress={() => this.changeState(1)}>
@@ -76,16 +85,27 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     borderBottomWidth: 4,
     borderColor: '#80E080',
-    height: 60,
+    height: 40,
+  },
+
+  logo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    borderBottomWidth: 1,
+    backgroundColor: '#78EA80',
+    borderColor: '#80E080',
+    height: 40,
   },
 
   text: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
     flexDirection: 'row',
     textAlign: 'center',
     width: width/4,
-    height: 60,
+    height: 40,
     alignSelf: 'stretch'
   },
   navMenu: {

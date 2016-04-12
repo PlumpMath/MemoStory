@@ -12,6 +12,7 @@ var Timeline = require('./Timeline');
 var SearchPage = require('./SearchPage');
 var PinnedEvents = require('./PinnedEvents');
 var UserProfile = require('./UserProfile');
+var PostEvent = require('./PostEvent');
 
 var SeparatedView = React.createClass({
     render: function() {
@@ -21,9 +22,10 @@ var SeparatedView = React.createClass({
             return <PinnedEvents />;
         } else if (this.props.routing==3) {
             return <SearchPage />;
-        } else {
+        } else if (this.props.routing==4) {
             return <UserProfile />;
-        }
+        } else
+            return <PostEvent />;
     }
 });
 
